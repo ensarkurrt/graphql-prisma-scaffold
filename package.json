@@ -1,0 +1,49 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --config nodemon.json src/index.ts",
+    "dev:debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
+    "start": "node dist/server",
+    "clean": "rm -rf dist",
+    "build": "npm -s run clean && npm -s run generate && tsc",
+    "prisma:migrate": "npx prisma db push --preview-feature && npx prisma migrate dev --name init",
+    "prisma:push": "npx prisma db push --preview-feature && npx prisma migrate dev --name init && npx prisma db seed --preview-feature",
+    "prisma:seed": "npx prisma db seed --preview-feature",
+    "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
+    "generate:prisma": "prisma generate",
+    "generate:nexus": "ts-node --transpile-only src/schema"
+  },
+  "author": "Avocuda",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^2.21.2",
+    "@types/bcryptjs": "^2.4.2",
+    "apollo-server": "^2.23.0",
+    "bcryptjs": "^2.4.3",
+    "graphql": "^15.5.0",
+    "graphql-middleware": "^6.0.7",
+    "graphql-scalars": "^1.9.0",
+    "graphql-shield": "^7.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "nexus": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/node": "^14.14.41",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "prisma": "^2.19.0",
+    "ts-node": "^9.1.1",
+    "tslint": "^5.12.1",
+    "typescript": "^3.9.9"
+  },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
+  }
+}
